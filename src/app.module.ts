@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
-import { UseCasesModule } from './domain/usecases/usecases.module';
-import { AdaptersModule } from './infra/adapters/adapters.module';
-import { DatabaseModule } from './infra/database/database.module';
+import { PresentationModule } from './presentation/presentation.module';
 
 @Module({
   imports: [
@@ -11,9 +9,7 @@ import { DatabaseModule } from './infra/database/database.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    AdaptersModule,
-    DatabaseModule,
-    UseCasesModule,
+    PresentationModule,
   ],
   controllers: [AppController],
   providers: [],

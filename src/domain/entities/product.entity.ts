@@ -1,12 +1,14 @@
-import { PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { BaseEntity } from './base.entity';
 
-export class Product {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+@Entity('products')
+export class Product extends BaseEntity {
+  @Column({ type: 'decimal' })
   height: number;
 
+  @Column({ type: 'decimal' })
   width: number;
 
+  @Column({ type: 'decimal' })
   length: number;
 }

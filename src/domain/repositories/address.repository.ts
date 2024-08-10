@@ -1,4 +1,6 @@
 import { Address } from '../entities/address.entity';
-import { BaseRepository } from './base.repository';
+import { IBaseRepository } from './base.repository';
 
-export interface AddressRepository extends BaseRepository<Address> {}
+export interface IAddressRepository extends IBaseRepository<Address> {}
+
+export const IAddressRepository = Symbol('IAddressRepository');
