@@ -21,9 +21,9 @@ export class Address extends BaseEntity {
   @Column({ type: 'varchar', length: 10 })
   number: string;
 
-  @Column({ type: 'bigint' })
+  @Column({ type: 'decimal' })
   lat: number;
 
-  @Column({ type: 'bigint' })
+  @Column({ type: 'decimal' })
   long: number;
 }

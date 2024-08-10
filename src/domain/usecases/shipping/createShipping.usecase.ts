@@ -1,8 +1,8 @@
+import { CreateShippingResponseDto } from 'src/presentation/shipping/dtos/create-shipping-response.dto';
 import { CreateShippingDto } from 'src/presentation/shipping/dtos/create-shipping.dto';
-import { CreatedShippingPresenter } from 'src/presentation/shipping/presenters/created-shipping.presenter';
 
 export interface ICreateShippingUseCase {
-  execute(data: CreateShippingDto): Promise<CreatedShippingPresenter>;
+  execute(data: CreateShippingDto): Promise<CreateShippingResponseDto>;
 }
 
 export const ICreateShippingUseCase = Symbol('ICreateShippingUseCase');

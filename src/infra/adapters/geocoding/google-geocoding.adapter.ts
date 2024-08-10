@@ -21,13 +21,17 @@ export class GoogleGeocodingAdapter implements IGeocoding {
   async getGeoLocationByAddress(
     address: Address,
   ): Promise<IGeocodingByAddress> {
+    const params = this.setAddressToConsult(address);
+    console.log(`[GOOGLE_GEOCODING]: ${JSON.stringify(params)}`);
     const { body } = await this.httpAdapter.httpGet<GoogleGeocodingResponse>({
       url: this.BASE_URL,
       queryParams: {
         key: this.API_KEY,
-        address: this.setAddressToConsult(address),
+        address: params,
       },
     });
+
+    console.log(`[GOOGLE_GEOCODING]: ${JSON.stringify(body)}`);
 
     if (body.status !== 'OK' || !body.results.length) {
       throw new AdapterException(

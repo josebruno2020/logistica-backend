@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AddressModule } from 'src/application/address/address.module';
-import { ProductModule } from 'src/application/product/product.module';
+import { ShippingModule } from 'src/application/shipping/shipping.module';
+import { ShippingController } from './shipping/shipping.controller';
 
 @Module({
-  imports: [AddressModule, ProductModule],
+  imports: [ShippingModule],
+  controllers: [ShippingController],
 })
 export class PresentationModule {}

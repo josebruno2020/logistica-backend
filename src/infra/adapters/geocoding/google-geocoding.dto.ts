@@ -4,18 +4,18 @@ interface AddressComponent {
   types: string[];
 }
 
-interface Location {
+interface GoogleLocation {
   lat: number;
   lng: number;
 }
 
 interface Viewport {
-  northeast: Location;
-  southwest: Location;
+  northeast: GoogleLocation;
+  southwest: GoogleLocation;
 }
 
 interface Geometry {
-  location: Location;
+  location: GoogleLocation;
   location_type: string;
   viewport: Viewport;
 }
