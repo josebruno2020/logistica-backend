@@ -28,9 +28,7 @@ describe('GoogleGeocodingAdapter', () => {
     httpAdapter = module.get<IHttp>(IHttp);
   });
 
-  // Testes serão adicionados aqui
   it('should return lat and long when geolocation is successful', async () => {
-    // Arrange
     const address: Address = Object.assign(new Address(), {
       street: 'Street',
       number: '123',
@@ -42,10 +40,8 @@ describe('GoogleGeocodingAdapter', () => {
 
     jest.spyOn(httpAdapter, 'httpGet').mockResolvedValue(mockResponse);
 
-    // Act
     const result = await geocodingAdapter.getGeoLocationByAddress(address);
 
-    // Assert
     expect(result).toEqual({
       lat: -23.55052,
       long: -46.633308,
@@ -72,7 +68,6 @@ describe('GoogleGeocodingAdapter', () => {
 
     jest.spyOn(httpAdapter, 'httpGet').mockResolvedValue(mockResponseError);
 
-    // Act & Assert
     await expect(
       geocodingAdapter.getGeoLocationByAddress(address),
     ).rejects.toBeInstanceOf(AdapterException);
