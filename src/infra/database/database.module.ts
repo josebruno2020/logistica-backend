@@ -57,7 +57,7 @@ const operatorRepository = {
         autoLoadEntities: true,
         entities: [__dirname + './../../**/*.entity{.ts,.js}'],
         logging: configService.get('APP_ENV') === 'local',
-        synchronize: true, //TODO mudar
+        synchronize: false,
       }),
     }),
     TypeOrmModule.forFeature([
