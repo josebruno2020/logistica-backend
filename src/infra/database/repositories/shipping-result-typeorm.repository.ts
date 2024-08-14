@@ -15,13 +15,37 @@ export class ShippingResultTypeOrmRepository
     super(shippingResultRepository);
   }
 
+  getFasterByShippingId(shippingId: string): Promise<ShippingResult | null> {
+    return this.shippingResultRepository.findOne({
+      where: {
+        shipping: { id: shippingId },
+      },
+      order: {
+        deliveryTime: 'ASC',
+      },
+      relations: { operator: true },
+    });
+  }
+
+  getCheaperByShippingId(shippingId: string): Promise<ShippingResult | null> {
+    return this.shippingResultRepository.findOne({
+      where: {
+        shipping: { id: shippingId },
+      },
+      order: {
+        totalCost: 'ASC',
+      },
+      relations: { operator: true },
+    });
+  }
+
   listByShippingId(shippingId: string): Promise<ShippingResult[]> {
     return this.shippingResultRepository.find({
       where: {
         shipping: { id: shippingId },
       },
       order: {
-        createdAt: 'ASC',
+        createdAt: 'DESC',
       },
       relations: {
         operator: true,

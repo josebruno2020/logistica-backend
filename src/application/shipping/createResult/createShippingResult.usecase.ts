@@ -5,10 +5,8 @@ import { IShippingResultRepository } from 'src/domain/repositories/shipping-resu
 import { ICreateShippingResultUseCase } from 'src/domain/usecases/shipping/createShippingResult.usecase';
 import { CreateShippingResultResponse } from 'src/presentation/shipping/dtos/create-shipping-result-response.dto';
 import { CreateShippingResultDto } from 'src/presentation/shipping/dtos/create-shipping-result.dto';
-import { BaseShippingUseCase } from '../shipping.usecase';
 
 export class CreateShippingResultUseCase
-  extends BaseShippingUseCase
   implements ICreateShippingResultUseCase
 {
   constructor(
@@ -16,9 +14,7 @@ export class CreateShippingResultUseCase
     private readonly operatorRepository: IOperatorRepository,
     @Inject(IShippingResultRepository)
     private readonly shippingResultRepository: IShippingResultRepository,
-  ) {
-    super();
-  }
+  ) {}
 
   async execute({
     shipping,
@@ -50,8 +46,11 @@ export class CreateShippingResultUseCase
     }
 
     return {
-      fasterOperator: this.getFasterResult(results),
-      cheaperOperator: this.getCheaperResult(results),
+      fasterOperator: await this.shippingResultRepository.getFasterByShippingId(
+        shipping.id,
+      ),
+      cheaperOperator:
+        await this.shippingResultRepository.getCheaperByShippingId(shipping.id),
     };
   }
 }

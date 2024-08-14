@@ -24,6 +24,8 @@ describe('ListLastFiveShippingUseCase', () => {
           provide: IShippingResultRepository,
           useValue: {
             listByShippingId: jest.fn(),
+            getCheaperByShippingId: jest.fn(),
+            getFasterByShippingId: jest.fn(),
           },
         },
       ],
@@ -56,18 +58,19 @@ describe('ListLastFiveShippingUseCase', () => {
       .spyOn(shippingRepository, 'listLastFive')
       .mockResolvedValue(mockShippings);
     jest
-      .spyOn(shippingResultRepository, 'listByShippingId')
-      .mockResolvedValue(mockResults);
-    jest.spyOn(useCase, 'getFasterResult').mockReturnValue(mockResults[0]);
-    jest.spyOn(useCase, 'getCheaperResult').mockReturnValue(mockResults[1]);
+      .spyOn(shippingResultRepository, 'getCheaperByShippingId')
+      .mockResolvedValue(mockResults[0]);
+    jest
+      .spyOn(shippingResultRepository, 'getFasterByShippingId')
+      .mockResolvedValue(mockResults[1]);
 
     const result = await useCase.execute();
 
     expect(result).toHaveLength(5);
     result.forEach((res, index) => {
       expect(res.shipping).toBe(mockShippings[index]);
-      expect(res.fasterOperator).toBe(mockResults[0]);
-      expect(res.cheaperOperator).toBe(mockResults[1]);
+      expect(res.cheaperOperator).toBe(mockResults[0]);
+      expect(res.fasterOperator).toBe(mockResults[1]);
     });
   });
 

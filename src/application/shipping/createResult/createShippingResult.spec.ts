@@ -47,6 +47,12 @@ describe('CreateShippingResultUseCase', () => {
           provide: IShippingResultRepository,
           useValue: {
             createEntity: jest.fn().mockResolvedValue(mockShippingResult),
+            getFasterByShippingId: jest
+              .fn()
+              .mockResolvedValue(mockShippingResult),
+            getCheaperByShippingId: jest
+              .fn()
+              .mockResolvedValue(mockShippingResult),
           },
         },
       ],
