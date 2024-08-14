@@ -18,6 +18,7 @@ Dentro do arquivo `.env.example`, insira o valor da `API_KEY` dentro da linha qu
 Após essa configuração, basta executar o script `./start.sh` para subir os containers da aplicação.
 
 ```bash
+$ chmod +x ./start.sh
 $ ./start.sh
 ```
 
