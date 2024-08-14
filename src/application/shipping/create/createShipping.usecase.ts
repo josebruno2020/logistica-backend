@@ -6,7 +6,7 @@ import { ICreateAddressUseCase } from 'src/domain/usecases/address/createAddress
 import { ICreateProductUseCase } from 'src/domain/usecases/product/createProduct.usecase';
 import { ICreateShippingUseCase } from 'src/domain/usecases/shipping/createShipping.usecase';
 import { ICreateShippingResultUseCase } from 'src/domain/usecases/shipping/createShippingResult.usecase';
-import { CreateShippingResponseDto } from 'src/presentation/shipping/dtos/create-shipping-response.dto';
+import { ShippingResponseDto } from 'src/presentation/shipping/dtos/create-shipping-response.dto';
 import { CreateShippingDto } from 'src/presentation/shipping/dtos/create-shipping.dto';
 
 export class CreateShippingUseCase implements ICreateShippingUseCase {
@@ -27,7 +27,7 @@ export class CreateShippingUseCase implements ICreateShippingUseCase {
     collectionAddress: collectionAddressDto,
     deliveryAddress: deliveryAddressDto,
     product: productDto,
-  }: CreateShippingDto): Promise<CreateShippingResponseDto> {
+  }: CreateShippingDto): Promise<ShippingResponseDto> {
     const collectionAddress =
       await this.createAddressUseCase.execute(collectionAddressDto);
     const deliveryAddress =

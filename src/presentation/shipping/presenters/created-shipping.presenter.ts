@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateShippingResponseDto } from '../dtos/create-shipping-response.dto';
+import { ShippingResponseDto } from '../dtos/create-shipping-response.dto';
 import { ShippingResultPresenter } from './shipping-result.presenter';
 import { ShippingPresenter } from './shipping.presenter';
 
@@ -17,7 +17,7 @@ export class CreatedShippingPresenter {
     shipping,
     fasterOperator,
     cheaperOperator,
-  }: CreateShippingResponseDto) {
+  }: ShippingResponseDto) {
     this.shipping = new ShippingPresenter(shipping);
     this.faster = new ShippingResultPresenter(fasterOperator);
     this.cheaper = new ShippingResultPresenter(cheaperOperator);

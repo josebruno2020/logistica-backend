@@ -14,4 +14,16 @@ export class ShippingTypeOrmRepository
   ) {
     super(shippingRepository);
   }
+
+  listLastFive(): Promise<Shipping[]> {
+    return this.shippingRepository.find({
+      order: { id: 'DESC' },
+      take: 5,
+      relations: {
+        product: true,
+        collectionAddress: true,
+        deliveryAddress: true,
+      },
+    });
+  }
 }

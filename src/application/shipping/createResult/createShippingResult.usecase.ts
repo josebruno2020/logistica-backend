@@ -5,8 +5,10 @@ import { IShippingResultRepository } from 'src/domain/repositories/shipping-resu
 import { ICreateShippingResultUseCase } from 'src/domain/usecases/shipping/createShippingResult.usecase';
 import { CreateShippingResultResponse } from 'src/presentation/shipping/dtos/create-shipping-result-response.dto';
 import { CreateShippingResultDto } from 'src/presentation/shipping/dtos/create-shipping-result.dto';
+import { BaseShippingUseCase } from '../shipping.usecase';
 
 export class CreateShippingResultUseCase
+  extends BaseShippingUseCase
   implements ICreateShippingResultUseCase
 {
   constructor(
@@ -14,7 +16,9 @@ export class CreateShippingResultUseCase
     private readonly operatorRepository: IOperatorRepository,
     @Inject(IShippingResultRepository)
     private readonly shippingResultRepository: IShippingResultRepository,
-  ) {}
+  ) {
+    super();
+  }
 
   async execute({
     shipping,
@@ -25,10 +29,12 @@ export class CreateShippingResultUseCase
     const { distance } = shipping;
     for await (const operator of operators) {
       const cubicValue = operator.calculationOperatorCubicValue(product);
+      console.log(`CUBIC VALUE: ${cubicValue}`);
       const totalOperatorCost = operator.calculationTotalCost(
         distance,
         cubicValue,
       );
+      console.log(totalOperatorCost);
       const deliveryOperatorTime =
         operator.calculationTotalDeliveryTimeInDays(distance);
 
@@ -47,25 +53,5 @@ export class CreateShippingResultUseCase
       fasterOperator: this.getFasterResult(results),
       cheaperOperator: this.getCheaperResult(results),
     };
-  }
-
-  private getCheaperResult(results: ShippingResult[]): ShippingResult | null {
-    if (!results.length) {
-      return null;
-    }
-
-    return results.reduce((cheaper, current) => {
-      return current.totalCost < cheaper.totalCost ? current : cheaper;
-    });
-  }
-
-  private getFasterResult(results: ShippingResult[]): ShippingResult | null {
-    if (!results.length) {
-      return null;
-    }
-
-    return results.reduce((faster, current) => {
-      return current.deliveryTime < faster.deliveryTime ? current : faster;
-    });
   }
 }

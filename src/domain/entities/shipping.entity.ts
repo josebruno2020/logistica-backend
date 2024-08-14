@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Address } from './address.entity';
 import { BaseEntity } from './base.entity';
 import { Product } from './product.entity';
+import { ShippingResult } from './shipping-result.entity';
 
 @Entity('shippings')
 export class Shipping extends BaseEntity {
@@ -16,4 +17,7 @@ export class Shipping extends BaseEntity {
 
   @Column({ type: 'decimal' })
   distance: number;
+
+  @OneToMany(() => ShippingResult, (result) => result.shipping)
+  results: ShippingResult[];
 }

@@ -14,4 +14,18 @@ export class ShippingResultTypeOrmRepository
   ) {
     super(shippingResultRepository);
   }
+
+  listByShippingId(shippingId: string): Promise<ShippingResult[]> {
+    return this.shippingResultRepository.find({
+      where: {
+        shipping: { id: shippingId },
+      },
+      order: {
+        createdAt: 'ASC',
+      },
+      relations: {
+        operator: true,
+      },
+    });
+  }
 }
