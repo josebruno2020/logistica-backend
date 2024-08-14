@@ -17,7 +17,7 @@ export class ShippingTypeOrmRepository
 
   listLastFive(): Promise<Shipping[]> {
     return this.shippingRepository.find({
-      order: { id: 'DESC' },
+      order: { createdAt: 'DESC' },
       take: 5,
       relations: {
         product: true,
